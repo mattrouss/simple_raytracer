@@ -1,4 +1,5 @@
 *.o
 *.d
 .idea/
+cmake-build-debug/
 raytracer
