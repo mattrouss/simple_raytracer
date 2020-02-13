@@ -1,3 +1,6 @@
+#ifndef TP1_RAYTRACER_MATH_TYPES_HH
+#define TP1_RAYTRACER_MATH_TYPES_HH
+
 #include <ostream>
 #include <cstdint>
 
@@ -40,3 +43,5 @@ class Vector3
 private:
         float x_, y_, z_;
 };
+
+#endif //TP1_RAYTRACER_MATH_TYPES_HH

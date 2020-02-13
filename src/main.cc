@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "types.hh"
+#include "math_types.hh"
 
 int main(int argc, char* argv[])
 {

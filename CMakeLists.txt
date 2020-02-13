@@ -7,5 +7,5 @@ include_directories(src)
 
 add_executable(raytracer
         src/main.cc
-        src/types.cc
-        src/types.hh)
+        src/math_types.cc
+        src/math_types.hh src/image.cc src/image.hh)
