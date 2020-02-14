@@ -8,7 +8,7 @@ struct Color
 {
     uint8_t r, g, b;
 
-    Color(uint8_t r_, uint8_t g_, uint8_t b_): r(r_), g(g_), b(b_) {}
+    Color(uint8_t r_ = 0, uint8_t g_ = 0, uint8_t b_ = 0): r(r_), g(g_), b(b_) {}
 
     friend std::ostream& operator<<(std::ostream &out, Color &c);
 };
