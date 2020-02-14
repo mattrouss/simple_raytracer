@@ -1,5 +1,4 @@
-#ifndef TP1_RAYTRACER_MATH_TYPES_HH
-#define TP1_RAYTRACER_MATH_TYPES_HH
+#pragma once
 
 #include <ostream>
 #include <cstdint>
@@ -54,4 +53,3 @@ struct Ray
     Ray(const Point3 &org_, const Vector3 &dir_): org(org_), dir(dir_) {}
 };
 
-#endif //TP1_RAYTRACER_MATH_TYPES_HH

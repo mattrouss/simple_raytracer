@@ -1,9 +1,7 @@
 //
 // Created by mattrouss on 2/14/20.
 //
-
-#ifndef TP1_RAYTRACER_OBJECT_HH
-#define TP1_RAYTRACER_OBJECT_HH
+#pragma once
 
 #include <cstdint>
 #include <tuple>
@@ -36,6 +34,3 @@ private:
 
     Uniform_Texture texture_;
 };
-
-
-#endif //TP1_RAYTRACER_OBJECT_HH

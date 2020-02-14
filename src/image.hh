@@ -1,8 +1,7 @@
 //
 // Created by mattrouss on 2/13/20.
 //
-#ifndef TP1_RAYTRACER_IMAGE_HH
-#define TP1_RAYTRACER_IMAGE_HH
+#pragma once
 
 #include <cstdint>
 #include <vector>
@@ -23,4 +22,3 @@ private:
     std::vector<std::vector<Color>> pixels_;
 };
 
-#endif //TP1_RAYTRACER_IMAGE_HH

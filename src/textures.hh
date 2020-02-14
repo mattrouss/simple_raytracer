@@ -1,9 +1,7 @@
 //
 // Created by mattrouss on 2/14/20.
 //
-
-#ifndef TP1_RAYTRACER_TEXTURES_HH
-#define TP1_RAYTRACER_TEXTURES_HH
+#pragma once
 
 #include <tuple>
 
@@ -27,4 +25,3 @@ public:
 };
 
 
-#endif //TP1_RAYTRACER_TEXTURES_HH
