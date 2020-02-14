@@ -15,33 +15,33 @@ struct Color
 
 class Point3
 {
-    public:
-        Point3(float x, float y, float z): x_(x), y_(y), z_(z) {}
+public:
+    Point3(float x, float y, float z): x_(x), y_(y), z_(z) {}
 
-        Point3 operator+(const Point3 &p) const;
+    Point3 operator+(const Point3 &p) const;
 
-        friend std::ostream& operator<<(std::ostream &out, Point3 &p);
+    friend std::ostream& operator<<(std::ostream &out, Point3 &p);
 
-    private:
-        float x_, y_, z_;
+private:
+    float x_, y_, z_;
 };
 
 class Vector3
 {
-    public:
-        Vector3(float x, float y, float z): x_(x), y_(y), z_(z) {}
+public:
+    Vector3(float x, float y, float z): x_(x), y_(y), z_(z) {}
 
-        Vector3 operator+(const Vector3 &v) const;
-        Vector3 operator*(const float &l) const;
-        Vector3 operator-(const Vector3 &v) const;
+    Vector3 operator+(const Vector3 &v) const;
+    Vector3 operator*(const float &l) const;
+    Vector3 operator-(const Vector3 &v) const;
 
-        friend std::ostream& operator<<(std::ostream &out, Vector3 &vec);
+    friend std::ostream& operator<<(std::ostream &out, Vector3 &vec);
 
-        float dot(const Vector3 &v) const;
-        Vector3 cross(const Vector3 &v) const;
+    float dot(const Vector3 &v) const;
+    Vector3 cross(const Vector3 &v) const;
 
 private:
-        float x_, y_, z_;
+    float x_, y_, z_;
 };
 
 #endif //TP1_RAYTRACER_MATH_TYPES_HH

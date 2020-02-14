@@ -11,16 +11,16 @@
 #include "math_types.hh"
 
 class Image {
-    public:
-    Image(int w, int h);
+public:
+Image(int w, int h);
 
-    void dump_ppm(const std::string &output_file) const;
+void dump_ppm(const std::string &output_file) const;
 
-    static Image test_image();
+static Image test_image();
 
-    private:
-        int w_, h_;
-        std::vector<std::vector<Color>> pixels_;
+private:
+    int w_, h_;
+    std::vector<std::vector<Color>> pixels_;
 };
 
 #endif //TP1_RAYTRACER_IMAGE_HH
