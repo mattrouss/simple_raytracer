@@ -12,7 +12,7 @@
 class Texture_Material
 {
 public:
-    Texture_Material(float kd, float ks): kd_(kd), ks_(ks) {}
+    Texture_Material(float kd = 0, float ks = 0): kd_(kd), ks_(ks) {}
 
     virtual std::tuple<float, float> get_texture_elms(const Point3 &p) const = 0;
 
@@ -23,7 +23,7 @@ protected:
 class Uniform_Texture : public Texture_Material
 {
 public:
-    std::tuple<float, float> get_texture_elms(const Point3 &p) const override;
+    std::tuple<float, float> get_texture_elms(const Point3 &p = {0, 0, 0}) const override;
 };
 
 
