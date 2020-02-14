@@ -7,11 +7,19 @@ std::ostream &operator<<(std::ostream &out, Color &c) {
 }
 
 
-Point3 Point3::operator+(const Point3 &p) const {
+Vector3 Point3::operator+(const Point3 &p) const {
     return {
-        this->x_ + p.x_,
-        this->y_ + p.y_,
-        this->z_ + p.z_
+        x_ + p.x_,
+        y_ + p.y_,
+        z_ + p.z_
+    };
+}
+
+Vector3 Point3::operator-(const Point3 &p) const {
+    return {
+            x_ - p.x_,
+            y_ - p.y_,
+            z_ - p.z_
     };
 }
 
@@ -46,6 +54,10 @@ Vector3 Vector3::operator-(const Vector3 &v) const {
 
 float Vector3::dot(const Vector3 &v) const {
     return this->x_ * v.x_ + this->y_ * v.y_ + this->z_ * v.z_;
+}
+
+float Vector3::sqr_magnitude() const {
+    return this->dot(*this);
 }
 
 Vector3 Vector3::cross(const Vector3 &v) const {

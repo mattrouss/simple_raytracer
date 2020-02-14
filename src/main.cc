@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "math_types.hh"
+#include "object.hh"
 #include "image.hh"
 
 int main(int argc, char* argv[])
@@ -15,7 +16,11 @@ int main(int argc, char* argv[])
     std::cout << v.dot(v) << "\n";
     */
     Image im = Image::test_image();
-    im.dump_ppm("out.txt");
+    Sphere sp(15, {10, 10, 10});
+
+    Ray r({0, 0, 0}, {1, 1, 1});
+
+    std::cout << sp.intersects(r);
 
     return 0;
 }
