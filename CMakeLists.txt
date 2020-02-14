@@ -8,4 +8,4 @@ include_directories(src)
 add_executable(raytracer
         src/main.cc
         src/math_types.cc
-        src/math_types.hh src/image.cc src/image.hh src/scene.cc src/scene.hh src/textures.cc src/textures.hh src/object.cc src/object.hh src/light.cc src/light.hh)
+        src/math_types.hh src/image.cc src/image.hh src/scene.cc src/scene.hh src/textures.cc src/textures.hh src/object.cc src/object.hh src/light.cc src/light.hh src/camera.cc src/camera.hh)
