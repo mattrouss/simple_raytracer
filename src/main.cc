@@ -31,14 +31,15 @@ int main(int argc, char* argv[])
 
     Scene s(c, 1024, 1024);
 
-    Uniform_Texture ut(1, 1, Color(255, 0, 150));
-    s.add_object(new Sphere(10, {0, 0, 50}, ut));
-    s.add_light_source(new Point_Light(Color(255, 255, 255), Vector3(20, 10, 20)));
+    Uniform_Texture ut_pink(1, 1, Color(255, 0, 150));
+    Uniform_Texture ut_green(1, 1, Color(0, 200, 0));
+    s.add_object(new Sphere(5, {0, 10, 30}, ut_pink));
+    s.add_object(new Sphere(20, {0, 0, 60}, ut_green));
+    s.add_light_source(new Point_Light(Color(255, 255, 255), Vector3(20, 10, 10)));
 
     Image im = s.gen_img();
 
     im.dump_ppm("out.ppm");
-
 
     return 0;
 }
