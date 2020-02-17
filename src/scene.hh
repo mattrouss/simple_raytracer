@@ -11,11 +11,16 @@
 
 class Scene {
 public:
+    Scene(const Camera &c): cam_(c) {}
+    Color cast_ray(const Vector3 &dir);
+
+    void add_object(Sphere o);
 
 private:
-    std::vector<Object> objects_;
+    std::vector<Sphere> objects_;
     std::vector<Light> lights_;
 
     Camera cam_;
+    float z_min_;
 };
 

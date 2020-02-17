@@ -3,7 +3,7 @@
 
 
 std::ostream &operator<<(std::ostream &out, Color &c) {
-    return out << "Color(r=" << c.r << ", g=" << c.g << ", b=" << ")";
+    return out << "Color(r=" << unsigned(c.r) << ", g=" << unsigned(c.g) << ", b=" << unsigned(c.b) << ")";
 }
 
 

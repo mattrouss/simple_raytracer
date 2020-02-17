@@ -11,11 +11,12 @@
 
 class Image {
 public:
-Image(int w, int h);
+    Image(int w, int h);
 
-void dump_ppm(const std::string &output_file) const;
+    void set_pixel(int x, int y, Color c);
+    void dump_ppm(const std::string &output_file) const;
 
-static Image test_image();
+    static Image test_image();
 
 private:
     int w_, h_;

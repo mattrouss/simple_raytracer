@@ -22,6 +22,6 @@ Vector3 Sphere::normal_of(Point3 &p) {
     return p - org_;
 }
 
-std::tuple<float, float> Sphere::get_texture_elms(Point3 &p) {
+std::tuple<float, float, Color> Sphere::get_texture_elms(const Point3 &p) {
     return texture_.get_texture_elms();
 }

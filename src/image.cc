@@ -11,9 +11,7 @@ Image::Image(int w, int h) {
 
     pixels_.resize(w);
     for (int i = 0; i < w; i++)
-    {
         pixels_[i].resize(h);
-    }
 }
 
 void Image::dump_ppm(const std::string &output_file) const {
@@ -45,5 +43,9 @@ Image Image::test_image()
     }
 
     return im;
+}
+
+void Image::set_pixel(int x, int y, Color c) {
+    pixels_[x][y] = c;
 }
 
