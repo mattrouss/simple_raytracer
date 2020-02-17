@@ -24,34 +24,17 @@ int main(int argc, char* argv[])
 
     std::cout << sp.intersects(r);
     */
-    float z_min = 10;
-    float fov_x = 1;
-    float fov_y = 1;
-    Camera c({0, 0, 0}, {0, 0, z_min}, {0, 1, 0}, fov_x, fov_y, z_min);
+    float z_min = 1.f;
+    float fov_x = 2.f;
+    float fov_y = 2.f;
+    Camera c({0, 0, 0}, {0, 0, z_min}, Vector3::up(), fov_x, fov_y, z_min);
 
-    Scene s(c);
+    Scene s(c, 500, 500);
 
     Uniform_Texture ut(1, 1, {255, 0, 0});
-    s.add_object(Sphere(20, {0, 0, 50}, ut));
+    s.add_object(new Sphere(15, {0, 20, 20}, ut));
 
-    float screen_width =  2 * z_min * std::tan(fov_x);
-    float screen_height = 2 * z_min * std::tan(fov_y);
-
-    int img_size = 1024;
-    Image im(img_size, img_size);
-    float pix_size = screen_width / img_size;
-    for (int i = 0; i < img_size; i++)
-    {
-        for (int j = 0; j < img_size; j++)
-        {
-            float z_pixel = z_min;
-            float x_pixel = 0 - (screen_width / 2) + j * pix_size;
-            float y_pixel = 0 - (screen_height / 2) + i * pix_size;
-
-            Color color = s.cast_ray({x_pixel, y_pixel, z_pixel});
-            im.set_pixel(i, j, color);
-        }
-    }
+    Image im = s.gen_img();
 
     im.dump_ppm("out.ppm");
 
