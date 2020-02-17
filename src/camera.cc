@@ -4,11 +4,11 @@
 
 #include "camera.hh"
 
-Point3 Camera::origin() const {
+Vector3 Camera::origin() const {
     return org_;
 }
 
-Point3 Camera::target() const {
+Vector3 Camera::target() const {
     return target_;
 }
 
