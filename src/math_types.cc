@@ -30,30 +30,43 @@ std::ostream& operator<<(std::ostream &out, Point3 &p) {
 
 Vector3 Vector3::operator+(const Vector3 &v) const {
     return {
-            this->x_ + v.x_,
-            this->y_ + v.y_,
-            this->z_ + v.z_
+            x_ + v.x_,
+            y_ + v.y_,
+            z_ + v.z_
+    };
+}
+
+
+Vector3 Vector3::operator-(const Vector3 &v) const {
+    return {
+        x_ - v.x_,
+        y_ - v.y_,
+        z_ - v.z_
     };
 }
 
 Vector3 Vector3::operator*(const float &l) const {
     return {
-        this->x_ * l,
-        this->y_ * l,
-        this->z_ * l
+            x_ * l,
+            y_ * l,
+            z_ * l
     };
 }
 
-Vector3 Vector3::operator-(const Vector3 &v) const {
+Vector3 Vector3::operator/(const float &l) const {
     return {
-        this->x_ - v.x_,
-        this->y_ - v.y_,
-        this->z_ - v.z_
+            x_ / l,
+            y_ / l,
+            z_ / l
     };
+}
+
+float Vector3::length() const {
+    return std::sqrt(x_ * x_ + y_ * y_ + z_ * z_);
 }
 
 float Vector3::dot(const Vector3 &v) const {
-    return this->x_ * v.x_ + this->y_ * v.y_ + this->z_ * v.z_;
+    return x_ * v.x_ + y_ * v.y_ + z_ * v.z_;
 }
 
 float Vector3::sqr_magnitude() const {
@@ -62,12 +75,18 @@ float Vector3::sqr_magnitude() const {
 
 Vector3 Vector3::cross(const Vector3 &v) const {
     return {
-            this->y_ * v.z_ - this->z_ * v.y_,
-            this->z_ * v.x_ - this->x_ * v.z_,
-            this->x_ * v.y_ - this->y_ * v.x_
+            y_ * v.z_ - z_ * v.y_,
+            z_ * v.x_ - x_ * v.z_,
+            x_ * v.y_ - y_ * v.x_
     };
 }
+
+Vector3 Vector3::normalize() {
+    return *this / this->length();
+}
+
 
 std::ostream& operator<<(std::ostream &out, Vector3 &vec) {
     return out << "Vector3(" << vec.x_ << ", " << vec.y_ << ", " << vec.z_ << ")";
 }
+
