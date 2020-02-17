@@ -8,9 +8,9 @@
 
 float Sphere::intersects(const Ray &r) const {
     Vector3 oc = r.org - org_;
-    float a = r.dir.dot(r.dir);
+    float a = r.dir.sqr_magnitude();
     float b = 2.0f * oc.dot(r.dir);
-    float c = oc.sqr_magnitude() - r_ * r_;
+    float c = oc.sqr_magnitude() - (r_ * r_);
 
     float discriminant = b*b - 4*a*c;
     if (discriminant < 0)
@@ -22,6 +22,6 @@ Vector3 Sphere::normal_of(Point3 &p) {
     return p - org_;
 }
 
-std::tuple<float, float, Color> Sphere::get_texture_elms(const Point3 &p) {
+std::tuple<float, float, Color> Sphere::get_texture_elms(const Point3 &p) const {
     return texture_.get_texture_elms();
 }
