@@ -20,21 +20,27 @@ public:
     {
         z_min_ = c.z_min();
 
-        screen_width_ =  2 * c.z_min() * tanf(c.fov_x());
-        screen_height_ = 2 * c.z_min() * tanf(c.fov_y());
-        screen_center_ = c.origin() + ((c.target() - c.origin()).normalize() * c.z_min());
+        screen_width_ =  2 * c.z_min() * tanf(c.fov_x() / 2);
+        screen_height_ = 2 * c.z_min() * tanf(c.fov_y() / 2);
+        screen_center_ = c.origin() + c.z_min() * (c.target() - c.origin()).normalized();
 
         tl_ = screen_center_ + (screen_width_ / 2) * Vector3::left() + (screen_height_ / 2) * Vector3::up();
+
+        std::cout << "Screen width: " << screen_width_ << std::endl;
+        std::cout << "Screen height: " << screen_height_ << std::endl;
+        std::cout << "Screen center: " << screen_center_ << std::endl;
+        std::cout << tl_ << std::endl;
     }
     Color cast_ray(const Ray &r) const;
 
     Image gen_img() const;
 
     void add_object(Object *o);
+    void add_light_source(Light *l);
 
 private:
     std::vector<Object *> objects_;
-    std::vector<Light> lights_;
+    std::vector<Light *> lights_;
 
     Camera cam_;
     Vector3 screen_center_, tl_;

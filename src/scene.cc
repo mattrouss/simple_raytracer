@@ -5,22 +5,36 @@
 #include "scene.hh"
 
 #include <iostream>
+#include <algorithm>
+#include <cstdint>
 
 Color Scene::cast_ray(const Ray &r) const {
     for(auto &o: objects_)
     {
-        if (o->intersects(r) != -1)
+        float t = o->intersects(r);
+        if (t != -1.f)
         {
-            std::cout << r << std::endl;
             auto [kd, kl, color] = o->get_texture_elms({0, 0, 0});
-            return color;
+            float intensity_x = 0;
+            float intensity_y = 0;
+            float intensity_z = 0;
+            Vector3 intersect_point = r.point_at_parameter(t);
+            for (auto &l: lights_)
+            {
+                Vector3 N = (intersect_point - o->origin()).normalized();
+                Vector3 L = (l->origin() - intersect_point).normalized();
+                intensity_x += kd * color.r_intensity() * l->color().r_intensity() * N.dot(L);
+                intensity_y += kd * color.g_intensity() * l->color().r_intensity() * N.dot(L);
+                intensity_z += kd * color.b_intensity() * l->color().r_intensity() * N.dot(L);
+
+            }
+            intensity_x = std::clamp<float>(intensity_x * 255, 0, 255);
+            intensity_y = std::clamp<float>(intensity_y * 255, 0, 255);
+            intensity_z = std::clamp<float>(intensity_z * 255, 0, 255);
+            return Color((uint8_t) intensity_x, (uint8_t) intensity_y, (uint8_t) intensity_z);
         }
     }
     return Color(0, 0, 0);
-}
-
-void Scene::add_object(Object *o) {
-    objects_.push_back(o);
 }
 
 Image Scene::gen_img() const {
@@ -29,10 +43,19 @@ Image Scene::gen_img() const {
     {
         for (int j = 0; j < img_width_; j++)
         {
-            Vector3 dir = tl_ + (i / screen_height_) * Vector3::down() + (j / screen_width_) * Vector3::right();
+            Vector3 dir = tl_ + ((float)i / (float)img_height_) * Vector3::down() + ((float)j / (float)img_width_) * Vector3::right();
+            dir = (dir - cam_.origin()).normalized();
             Color color = cast_ray({cam_.origin(), dir});
             im.set_pixel(i, j, color);
         }
     }
     return im;
+}
+
+void Scene::add_object(Object *o) {
+    objects_.push_back(o);
+}
+
+void Scene::add_light_source(Light *l) {
+    lights_.push_back(l);
 }

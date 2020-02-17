@@ -10,8 +10,8 @@
 int main(int argc, char* argv[])
 {
     /*
-    Point3 p = Point3(1, 2, 3);
-    Point3 q = Point3(1, 2, 3);
+    Vector3 p = Vector3(1, 2, 3);
+    Vector3 q = Vector3(1, 2, 3);
     p = p + q;
     std::cout << p << "\n";
 
@@ -25,14 +25,15 @@ int main(int argc, char* argv[])
     std::cout << sp.intersects(r);
     */
     float z_min = 1.f;
-    float fov_x = 2.f;
-    float fov_y = 2.f;
+    float fov_x = 1.f;
+    float fov_y = 1.f;
     Camera c({0, 0, 0}, {0, 0, z_min}, Vector3::up(), fov_x, fov_y, z_min);
 
-    Scene s(c, 500, 500);
+    Scene s(c, 1024, 1024);
 
-    Uniform_Texture ut(1, 1, {255, 0, 0});
-    s.add_object(new Sphere(15, {0, 20, 20}, ut));
+    Uniform_Texture ut(1, 1, Color(255, 0, 150));
+    s.add_object(new Sphere(10, {0, 0, 50}, ut));
+    s.add_light_source(new Point_Light(Color(255, 255, 255), Vector3(20, 10, 20)));
 
     Image im = s.gen_img();
 
