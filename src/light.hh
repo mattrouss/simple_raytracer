@@ -6,12 +6,21 @@
 #include "math_types.hh"
 
 class Light {
+public:
+    explicit Light(const Color &color): color_(color) {}
+
+    virtual Vector3 origin() const = 0;
+    Color color() const;
 protected:
-    float intensity_;
+    Color color_;
 };
 
 class Point_Light: public Light
 {
+public:
+    Point_Light(const Color &color, const Vector3 &org): Light(color), org_(org) {}
+
+    Vector3 origin() const override;
 private:
-    Point3 org_;
+    Vector3 org_;
 };
