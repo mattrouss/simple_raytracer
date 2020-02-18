@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <chrono>
 
 #include "math_types.hh"
 #include "object.hh"
@@ -33,12 +34,19 @@ int main(int argc, char* argv[])
 
     Uniform_Texture ut_pink(1, 1, Color(255, 0, 150));
     Uniform_Texture ut_green(1, 1, Color(0, 200, 0));
-    s.add_object(new Sphere(5, {0, 10, 30}, ut_pink));
-    s.add_object(new Sphere(20, {0, 0, 60}, ut_green));
-    s.add_light_source(new Point_Light(Color(255, 255, 255), Vector3(20, 10, 10)));
+    Uniform_Texture ut_blue(1, 1, Color(0, 0, 200));
+    //s.add_object(new Sphere(3, {5, 0, 20}, ut_blue));
+    //s.add_object(new Sphere(5, {0, 10, 30}, ut_pink));
+    s.add_object(new Sphere(5, {0, 0, 40}, ut_green));
+    s.add_light_source(new Point_Light(Color(255, 255, 255), Vector3(20, 10, 0)));
 
+    auto start = std::chrono::high_resolution_clock::now();
     Image im = s.gen_img();
+    auto stop = std::chrono::high_resolution_clock::now();
 
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+
+    std::cout << "Image gen time: " << duration.count() << "ms" << std::endl;
     im.dump_ppm("out.ppm");
 
     return 0;
