@@ -57,7 +57,7 @@ Image Scene::gen_img() const {
     {
         for (int j = 0; j < img_width_; j++)
         {
-            Vector3 dir = tl_ + ((float)i / (float)img_height_) * Vector3::down() + ((float)j / (float)img_width_) * Vector3::right();
+            Vector3 dir = tl_ + ((float)i / (float)img_height_) * screen_height_ * Vector3::down() + ((float)j / (float)img_width_) * screen_width_ * Vector3::right();
             dir = (dir - cam_.origin()).normalized();
             Color color = cast_ray({cam_.origin(), dir});
             im.set_pixel(i, j, color);

@@ -20,9 +20,9 @@ public:
     {
         z_min_ = c.z_min();
 
-        screen_width_ =  2 * c.z_min() * tanf(c.fov_x() / 2);
-        screen_height_ = 2 * c.z_min() * tanf(c.fov_y() / 2);
-        screen_center_ = c.origin() + c.z_min() * (c.target() - c.origin()).normalized();
+        screen_width_ =  2 * z_min_ * tanf(c.fov_x() / 2);
+        screen_height_ = 2 * z_min_ * tanf(c.fov_y() / 2);
+        screen_center_ = c.origin() + z_min_ * (c.target() - c.origin()).normalized();
 
         tl_ = screen_center_ + (screen_width_ / 2) * Vector3::left() + (screen_height_ / 2) * Vector3::up();
 
