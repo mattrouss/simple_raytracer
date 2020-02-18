@@ -18,14 +18,10 @@ float Sphere::intersects(const Ray &r) const {
     return (-b - std::sqrt(discriminant)) / (2.0f * a);
 }
 
-Vector3 Sphere::normal_of(Vector3 &p) {
-    return p - org_;
+Vector3 Sphere::normal_of(const Vector3 &v) const {
+    return (v - org_).normalized();
 }
 
 std::tuple<float, float, Color> Sphere::get_texture_elms(const Vector3 &p) const {
     return texture_.get_texture_elms(p);
-}
-
-Vector3 Sphere::origin() const {
-    return org_;
 }

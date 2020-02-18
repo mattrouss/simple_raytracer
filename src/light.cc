@@ -8,6 +8,6 @@ Color Light::color() const {
     return color_;
 }
 
-Vector3 Point_Light::origin() const {
-    return org_;
+Vector3 Point_Light::direction_from(const Vector3 &v) const {
+    return (org_ - v).normalized();
 }

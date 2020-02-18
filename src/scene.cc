@@ -39,8 +39,8 @@ Color Scene::cast_ray(const Ray &r) const {
         Vector3 intersect_point = r.point_at_parameter(min_dist);
         for (auto &l: lights_)
         {
-            Vector3 N = (intersect_point - min->origin()).normalized();
-            Vector3 L = (l->origin() - intersect_point).normalized();
+            Vector3 N = min->normal_of(intersect_point);
+            Vector3 L = l->direction_from(intersect_point);
             intensity_x += kd * color.r_intensity() * l->color().r_intensity() * N.dot(L);
             intensity_y += kd * color.g_intensity() * l->color().r_intensity() * N.dot(L);
             intensity_z += kd * color.b_intensity() * l->color().r_intensity() * N.dot(L);

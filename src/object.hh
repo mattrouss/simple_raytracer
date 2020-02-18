@@ -12,10 +12,8 @@
 class Object {
 public:
     virtual float intersects(const Ray &r) const = 0;
-    virtual Vector3 normal_of(Vector3 &p) = 0;
+    virtual Vector3 normal_of(const Vector3 &v) const = 0;
     virtual std::tuple<float, float, Color> get_texture_elms(const Vector3 &p) const = 0;
-
-    virtual Vector3 origin() const = 0;
 };
 
 class Sphere : public Object
@@ -27,10 +25,8 @@ public:
         texture_(texture) {}
 
     float intersects(const Ray &r) const override;
-    Vector3 normal_of(Vector3 &p) override;
+    Vector3 normal_of(const Vector3 &v) const override;
     std::tuple<float, float, Color> get_texture_elms(const Vector3 &p) const override;
-
-    Vector3 origin() const override;
 
 private:
     float r_;
