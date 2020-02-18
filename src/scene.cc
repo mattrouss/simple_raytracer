@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <tuple>
+#include <limits>
 
 bool cmp_dist(std::tuple<float, Object*> a, std::tuple<float, Object*> b)
 {
@@ -15,28 +16,30 @@ bool cmp_dist(std::tuple<float, Object*> a, std::tuple<float, Object*> b)
 }
 
 Color Scene::cast_ray(const Ray &r) const {
-    std::vector<std::tuple<float, Object*>> intersections;
+    Object *min = nullptr;
+    float dist = 0;
+    float min_dist = std::numeric_limits<float>::max();
     for(auto &o: objects_)
     {
-        float t = o->intersects(r);
-        if (t != -1)
-            intersections.emplace_back(t, o);
+        dist = o->intersects(r);
+        if (dist == -1)
+            continue;
+        if (dist < min_dist)
+        {
+            min = o;
+            min_dist = dist;
+        }
     }
-    if (intersections.empty()) {
-        return Color(0, 0, 0);
-    }
-    std::sort(intersections.begin(), intersections.end(), cmp_dist);
-    float dst = std::get<0>(intersections[0]);
-    if (dst > 0)
+    if (min_dist > 0 && min != nullptr)
     {
-        auto [kd, kl, color] = std::get<1>(intersections[0])->get_texture_elms({0, 0, 0});
+        auto [kd, kl, color] = min->get_texture_elms({0, 0, 0});
         float intensity_x = 0;
         float intensity_y = 0;
         float intensity_z = 0;
-        Vector3 intersect_point = r.point_at_parameter(dst);
+        Vector3 intersect_point = r.point_at_parameter(min_dist);
         for (auto &l: lights_)
         {
-            Vector3 N = (intersect_point - std::get<1>(intersections[0])->origin()).normalized();
+            Vector3 N = (intersect_point - min->origin()).normalized();
             Vector3 L = (l->origin() - intersect_point).normalized();
             intensity_x += kd * color.r_intensity() * l->color().r_intensity() * N.dot(L);
             intensity_y += kd * color.g_intensity() * l->color().r_intensity() * N.dot(L);
