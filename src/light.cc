@@ -4,8 +4,8 @@
 
 #include "light.hh"
 
-Color Light::color() const {
-    return color_;
+Light_Intensity Light::intensity() const {
+    return intensity_;
 }
 
 Vector3 Point_Light::direction_from(const Vector3 &v) const {

@@ -3,6 +3,7 @@
 #include <ostream>
 #include <cstdint>
 #include <cmath>
+#include <algorithm>
 
 class Vector3;
 
@@ -10,12 +11,22 @@ struct Color
 {
     uint8_t r, g, b;
 
-    explicit Color(uint8_t r_ = 0, uint8_t g_ = 0, uint8_t b_ = 0): r(r_), g(g_), b(b_) {}
+    Color(uint8_t r_ = 0, uint8_t g_ = 0, uint8_t b_ = 0): r(r_), g(g_), b(b_) {}
 
     float r_intensity() const;
     float g_intensity() const;
     float b_intensity() const;
 
+    friend std::ostream& operator<<(std::ostream &out, Color &c);
+};
+
+struct Light_Intensity
+{
+    float r, g, b;
+
+    Light_Intensity(float r_ = 0, float g_ = 0, float b_ = 0): r(r_), g(g_), b(b_) {}
+
+    Color to_rgb() const;
     friend std::ostream& operator<<(std::ostream &out, Color &c);
 };
 
@@ -34,6 +45,7 @@ public:
     float y() const;
     float z() const;
 
+    static Vector3 zeros();
     static Vector3 up();
     static Vector3 down();
     static Vector3 left();

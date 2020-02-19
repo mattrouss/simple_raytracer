@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     s.add_object(new Sphere(3, {5, 0, 20}, ut_blue));
     s.add_object(new Sphere(5, {0, 10, 30}, ut_pink));
     s.add_object(new Sphere(5, {-10, -10, 30}, ut_green));
-    s.add_light_source(new Point_Light(Color(255, 255, 255), Vector3(20, 10, 0)));
+    s.add_light_source(new Point_Light(Light_Intensity(1, 1, 1), Vector3(20, 10, 0)));
 
     auto start = std::chrono::high_resolution_clock::now();
     Image im = s.gen_img();

@@ -17,6 +17,14 @@ float Color::b_intensity() const {
     return (float) b / 255.f;
 }
 
+Color Light_Intensity::to_rgb() const {
+    return {
+        (uint8_t)std::clamp<float>(r * 255, 0, 255),
+        (uint8_t)std::clamp<float>(g * 255, 0, 255),
+        (uint8_t)std::clamp<float>(b * 255, 0, 255),
+    };
+}
+
 Vector3 Vector3::operator+(const Vector3 &v) const {
     return {
             x_ + v.x_,
@@ -98,6 +106,10 @@ Vector3 Vector3::normalized() const {
 
 std::ostream& operator<<(std::ostream &out, const Vector3 &vec) {
     return out << "Vector3(" << vec.x_ << ", " << vec.y_ << ", " << vec.z_ << ")";
+}
+
+Vector3 Vector3::zeros() {
+    return Vector3(0, 0, 0);
 }
 
 Vector3 Vector3::up() {

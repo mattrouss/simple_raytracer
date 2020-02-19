@@ -7,19 +7,19 @@
 
 class Light {
 public:
-    explicit Light(const Color &color): color_(color) {}
+    explicit Light(const Light_Intensity &intensity): intensity_(intensity) {}
 
     virtual Vector3 direction_from(const Vector3 &v) const = 0;
-    Color color() const;
+    Light_Intensity intensity() const;
 
 protected:
-    Color color_;
+    Light_Intensity intensity_;
 };
 
 class Point_Light: public Light
 {
 public:
-    Point_Light(const Color &color, const Vector3 &org): Light(color), org_(org) {}
+    Point_Light(const Light_Intensity &intensity, const Vector3 &org): Light(intensity), org_(org) {}
 
     Vector3 direction_from(const Vector3 &v) const override;
 private:
