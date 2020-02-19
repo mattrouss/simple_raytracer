@@ -31,7 +31,7 @@ public:
         std::cout << "Screen center: " << screen_center_ << std::endl;
         std::cout << tl_ << std::endl;
     }
-    Color cast_ray(const Ray &r) const;
+    std::tuple<Vector3, Object*> cast_ray(const Ray &r) const;
 
     Image gen_img() const;
 
