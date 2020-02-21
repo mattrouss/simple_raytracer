@@ -10,19 +10,19 @@
 class Texture_Material
 {
 public:
-    explicit Texture_Material(float kd = 0, float ks = 0): kd_(kd), ks_(ks) {}
+    explicit Texture_Material(float kd = 0, float ks = 0, float ns = 0): kd_(kd), ks_(ks), ns_(ns) {}
 
-    virtual std::tuple<float, float, Color> get_texture_elms(const Vector3 &p) const = 0;
+    virtual std::tuple<float, float, float, Color> get_texture_elms(const Vector3 &p) const = 0;
 
 protected:
-    float kd_, ks_;
+    float kd_, ks_, ns_;
 };
 
 class Uniform_Texture : public Texture_Material
 {
 public:
-    Uniform_Texture(float kd, float ks, const Color &color): Texture_Material(kd, ks), color_(color) {}
-    std::tuple<float, float, Color> get_texture_elms(const Vector3 &p) const override;
+    Uniform_Texture(float kd, float ks, float ns, const Color &color): Texture_Material(kd, ks, ns), color_(color) {}
+    std::tuple<float, float, float, Color> get_texture_elms(const Vector3 &p) const override;
 
 private:
     Color color_;

@@ -32,23 +32,23 @@ std::tuple<Vector3, Object*> Scene::cast_ray(const Ray &r) const {
     return std::make_tuple(intersect_point, min);
 }
 
-Light_Intensity Scene::get_diffuse(const Vector3 &intersect_point,
+Color_Intensity Scene::get_Color_Intensity(const Ray &ray, const Vector3 &intersect_point,
                                    const Object *obj) const {
-    Light_Intensity diffuse;
-    auto [kd, kl, color] = obj->get_texture_elms(intersect_point);
+    Color_Intensity Color_Intensity;
+    auto [kd, ks, ns, color] = obj->get_texture_elms(intersect_point);
+    Vector3 N = obj->normal_of(intersect_point);
+    Vector3 S = (ray.dir - (2 * ray.dir.dot(N) * N)).normalized();
     for (auto &l: lights_)
     {
-        Vector3 N = obj->normal_of(intersect_point);
         Vector3 L = l->direction_from(intersect_point);
         auto [light_intersect, intersect_obj] = cast_ray({intersect_point + (INTERSECT_DELTA * N), L});
         if (intersect_obj != nullptr && (light_intersect - intersect_point).sqr_magnitude() < (l->position() - intersect_point).sqr_magnitude())
             continue;
-        float dot = N.dot(L);
-        diffuse.r += kd * color.r_intensity() * l->intensity().r * dot;
-        diffuse.g += kd * color.g_intensity() * l->intensity().g * dot;
-        diffuse.b += kd * color.b_intensity() * l->intensity().b * dot;
+
+        Color_Intensity.add_diffuse(kd, color, *l, intersect_point, N, L);
+        Color_Intensity.add_specular(ks, ns, *l, intersect_point, S, L);
     }
-    return diffuse;
+    return Color_Intensity;
 }
 
 Image Scene::gen_img() const {
@@ -61,12 +61,12 @@ Image Scene::gen_img() const {
                     + ((float)i / (float)img_height_) * screen_height_ * Vector3::down()
                     + ((float)j / (float)img_width_) * screen_width_ * Vector3::right();
             dir = (dir - cam_.origin()).normalized();
-            auto [intersect_point, min] = cast_ray({cam_.origin(), dir});
+            Ray ray(cam_.origin(), dir);
+            auto [intersect_point, min] = cast_ray(ray);
             Color c(0, 0, 0);
             if (min != nullptr)
             {
-                Light_Intensity pixel_intensity;
-                pixel_intensity += get_diffuse(intersect_point, min);
+                Color_Intensity pixel_intensity = get_Color_Intensity(ray, intersect_point, min);
                 c = pixel_intensity.to_rgb();
             }
             im.set_pixel(i, j, c);

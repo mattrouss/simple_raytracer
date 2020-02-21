@@ -28,7 +28,7 @@ public:
 
     }
     std::tuple<Vector3, Object*> cast_ray(const Ray &r) const;
-    Light_Intensity get_diffuse(const Vector3 &intersect_point, const Object *obj) const;
+    Color_Intensity get_Color_Intensity(const Ray &ray, const Vector3 &intersect_point, const Object *obj) const;
 
     Image gen_img() const;
 
