@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <iostream>
 
 #include "object.hh"
 
@@ -15,7 +16,10 @@ float Sphere::intersects(const Ray &r) const {
     float discriminant = b*b - 4*a*c;
     if (discriminant < 0)
         return - 1;
-    return (-b - std::sqrt(discriminant)) / (2.0f * a);
+    float dist = (-b - std::sqrt(discriminant)) / (2.0f * a);
+    if (dist < 0)
+        return -1;
+    return dist;
 }
 
 Vector3 Sphere::normal_of(const Vector3 &v) const {

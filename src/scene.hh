@@ -26,12 +26,9 @@ public:
 
         tl_ = screen_center_ + (screen_width_ / 2) * Vector3::left() + (screen_height_ / 2) * Vector3::up();
 
-        std::cout << "Screen width: " << screen_width_ << std::endl;
-        std::cout << "Screen height: " << screen_height_ << std::endl;
-        std::cout << "Screen center: " << screen_center_ << std::endl;
-        std::cout << tl_ << std::endl;
     }
     std::tuple<Vector3, Object*> cast_ray(const Ray &r) const;
+    Light_Intensity get_diffuse(const Vector3 &intersect_point, const Object *obj) const;
 
     Image gen_img() const;
 

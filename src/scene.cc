@@ -10,10 +10,7 @@
 #include <tuple>
 #include <limits>
 
-bool cmp_dist(std::tuple<float, Object*> a, std::tuple<float, Object*> b)
-{
-    return std::get<0>(a) < std::get<0>(b);
-}
+#define INTERSECT_DELTA 1e-4
 
 std::tuple<Vector3, Object*> Scene::cast_ray(const Ray &r) const {
     Object *min = nullptr;
@@ -31,9 +28,27 @@ std::tuple<Vector3, Object*> Scene::cast_ray(const Ray &r) const {
             min_dist = dist;
         }
     }
-    if (min_dist > 0)
-        intersect_point = r.point_at_parameter(min_dist);
+    intersect_point = r.point_at_parameter(min_dist);
     return std::make_tuple(intersect_point, min);
+}
+
+Light_Intensity Scene::get_diffuse(const Vector3 &intersect_point,
+                                   const Object *obj) const {
+    Light_Intensity diffuse;
+    auto [kd, kl, color] = obj->get_texture_elms(intersect_point);
+    for (auto &l: lights_)
+    {
+        Vector3 N = obj->normal_of(intersect_point);
+        Vector3 L = l->direction_from(intersect_point);
+        auto [light_intersect, intersect_obj] = cast_ray({intersect_point + (INTERSECT_DELTA * N), L});
+        if (intersect_obj != nullptr && (light_intersect - intersect_point).sqr_magnitude() < (l->position() - intersect_point).sqr_magnitude())
+            continue;
+        float dot = N.dot(L);
+        diffuse.r += kd * color.r_intensity() * l->intensity().r * dot;
+        diffuse.g += kd * color.g_intensity() * l->intensity().g * dot;
+        diffuse.b += kd * color.b_intensity() * l->intensity().b * dot;
+    }
+    return diffuse;
 }
 
 Image Scene::gen_img() const {
@@ -50,23 +65,9 @@ Image Scene::gen_img() const {
             Color c(0, 0, 0);
             if (min != nullptr)
             {
-                auto [kd, kl, color] = min->get_texture_elms({0, 0, 0});
-                float intensity_x = 0;
-                float intensity_y = 0;
-                float intensity_z = 0;
-                for (auto &l: lights_)
-                {
-                    Vector3 N = min->normal_of(intersect_point);
-                    Vector3 L = l->direction_from(intersect_point);
-                    intensity_x += kd * color.r_intensity() * l->intensity().r * N.dot(L);
-                    intensity_y += kd * color.g_intensity() * l->intensity().g * N.dot(L);
-                    intensity_z += kd * color.b_intensity() * l->intensity().b * N.dot(L);
-
-                }
-                intensity_x = std::clamp<float>(intensity_x * 255, 0, 255);
-                intensity_y = std::clamp<float>(intensity_y * 255, 0, 255);
-                intensity_z = std::clamp<float>(intensity_z * 255, 0, 255);
-                c = Color((uint8_t) intensity_x, (uint8_t) intensity_y, (uint8_t) intensity_z);
+                Light_Intensity pixel_intensity;
+                pixel_intensity += get_diffuse(intersect_point, min);
+                c = pixel_intensity.to_rgb();
             }
             im.set_pixel(i, j, c);
         }

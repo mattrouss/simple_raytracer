@@ -24,8 +24,6 @@ Light_Intensity Light_Intensity::operator+(const Light_Intensity &l) {
     return *this;
 }
 
-
-
 std::ostream &operator<<(std::ostream &out, Light_Intensity &l) {
     return out << "Light_Intensity(r=" << l.r << ", g=" << l.g << ", b=" << l.b << ")";
 }
