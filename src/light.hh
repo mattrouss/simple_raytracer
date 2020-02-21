@@ -14,8 +14,8 @@ struct Light_Intensity
 
     Light_Intensity(float r_ = 0, float g_ = 0, float b_ = 0): r(r_), g(g_), b(b_) {}
 
-    Light_Intensity operator+(const Light_Intensity &l);
     Light_Intensity operator+=(const Light_Intensity &l);
+    Light_Intensity operator+(const Light_Intensity &l);
 
     Color to_rgb() const;
 

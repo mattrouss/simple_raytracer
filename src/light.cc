@@ -12,18 +12,18 @@ Color Light_Intensity::to_rgb() const {
     };
 }
 
-Light_Intensity Light_Intensity::operator+(const Light_Intensity &l) {
-    return {
-            r + l.r,
-            g + l.g,
-            b + l.b
-    };
-}
-
 Light_Intensity Light_Intensity::operator+=(const Light_Intensity &l) {
-    *this = *this + l;
+    r += l.r;
+    g += l.g;
+    b += l.b;
     return *this;
 }
+
+Light_Intensity Light_Intensity::operator+(const Light_Intensity &l) {
+    *this += l;
+    return *this;
+}
+
 
 
 std::ostream &operator<<(std::ostream &out, Light_Intensity &l) {
