@@ -17,52 +17,53 @@ float Color::b_intensity() const {
     return (float) b / 255.f;
 }
 
-Color Light_Intensity::to_rgb() const {
-    return {
-        (uint8_t)std::clamp<float>(r * 255, 0, 255),
-        (uint8_t)std::clamp<float>(g * 255, 0, 255),
-        (uint8_t)std::clamp<float>(b * 255, 0, 255),
-    };
+Vector3& Vector3::operator+=(const Vector3 &v) {
+    x_ += v.x_;
+    y_ += v.y_;
+    z_ += v.z_;
+
+    return *this;
 }
 
-Vector3 Vector3::operator+(const Vector3 &v) const {
-    return {
-            x_ + v.x_,
-            y_ + v.y_,
-            z_ + v.z_
-    };
+Vector3& Vector3::operator-=(const Vector3 &v) {
+    x_ -= v.x_;
+    y_ -= v.y_;
+    z_ -= v.z_;
+
+    return *this;
 }
 
-Vector3 Vector3::operator-(const Vector3 &v) const {
-    return {
-        x_ - v.x_,
-        y_ - v.y_,
-        z_ - v.z_
-    };
+Vector3& Vector3::operator*=(const float &l) {
+    x_ *= l;
+    y_ *= l;
+    z_ *= l;
+
+    return *this;
 }
 
-Vector3 Vector3::operator*(const float &l) const {
-    return {
-            x_ * l,
-            y_ * l,
-            z_ * l
-    };
+Vector3&  Vector3::operator/=(const float &l) {
+    x_ /= l;
+    y_ /= l;
+    z_ /= l;
+
+    return *this;
 }
 
-Vector3 operator*(const float &l, const Vector3 &v) {
-    return {
-            v.x_ * l,
-            v.y_ * l,
-            v.z_ * l
-    };
+
+Vector3 operator*(const float &l, Vector3 v) {
+    return v *= l;
 }
 
-Vector3 Vector3::operator/(const float &l) const {
-    return {
-            x_ / l,
-            y_ / l,
-            z_ / l
-    };
+Vector3 operator*(Vector3 v, const float &l) {
+    return v *= l;
+}
+
+Vector3 operator/(const float &l, Vector3 v) {
+    return v /= l;
+}
+
+Vector3 operator/(Vector3 v, const float &l) {
+    return v /= l;
 }
 
 float Vector3::x() const {
@@ -99,7 +100,7 @@ Vector3 Vector3::cross(const Vector3 &v) const {
 
 Vector3 Vector3::normalized() const {
     Vector3 copy = *this;
-    copy = copy / magnitude();
+    copy /= magnitude();
     return copy;
 }
 

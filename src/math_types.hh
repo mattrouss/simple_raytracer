@@ -20,26 +20,21 @@ struct Color
     friend std::ostream& operator<<(std::ostream &out, Color &c);
 };
 
-struct Light_Intensity
-{
-    float r, g, b;
-
-    Light_Intensity(float r_ = 0, float g_ = 0, float b_ = 0): r(r_), g(g_), b(b_) {}
-
-    Color to_rgb() const;
-    friend std::ostream& operator<<(std::ostream &out, Color &c);
-};
 
 class Vector3
 {
 public:
     Vector3(float x = 0, float y = 0, float z = 0): x_(x), y_(y), z_(z) {}
 
-    Vector3 operator+(const Vector3 &v) const;
-    Vector3 operator-(const Vector3 &v) const;
-    Vector3 operator*(const float &l) const;
-    friend Vector3 operator*(const float &l, const Vector3 &v);
-    Vector3 operator/(const float &l) const;
+    Vector3& operator+=(const Vector3 &v);
+    Vector3& operator-=(const Vector3 &v);
+    Vector3& operator*=(const float &l);
+    Vector3& operator/=(const float &l);
+
+    friend Vector3 operator*(const float &l, Vector3 v);
+    friend Vector3 operator*(Vector3 v, const float &l);
+    friend Vector3 operator/(const float &l, Vector3 v);
+    friend Vector3 operator/(Vector3 v, const float &l);
 
     float x() const;
     float y() const;
@@ -64,6 +59,16 @@ public:
 private:
     float x_, y_, z_;
 };
+
+inline Vector3 operator+(Vector3 lhs, const Vector3 &rhs) {
+    lhs += rhs;
+    return lhs;
+}
+
+inline Vector3 operator-(Vector3 lhs, const Vector3 &rhs) {
+    lhs -= rhs;
+    return lhs;
+}
 
 struct Ray
 {
