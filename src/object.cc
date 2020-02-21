@@ -26,7 +26,7 @@ Vector3 Sphere::normal_of(const Vector3 &v) const {
     return (v - org_).normalized();
 }
 
-std::tuple<float, float, float, Color> Sphere::get_texture_elms(const Vector3 &p) const {
+std::tuple<float, float, float, float, Color> Sphere::get_texture_elms(const Vector3 &p) const {
     return texture_.get_texture_elms(p);
 }
 
@@ -42,7 +42,7 @@ Vector3 Plane::normal_of(const Vector3 &v) const {
     return normal_;
 }
 
-std::tuple<float, float, float, Color>
+std::tuple<float, float, float, float, Color>
 Plane::get_texture_elms(const Vector3 &p) const {
     return texture_.get_texture_elms(p);
 }

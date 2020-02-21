@@ -28,7 +28,13 @@ public:
 
     }
     std::tuple<Vector3, Object*> cast_ray(const Ray &r) const;
-    Color_Intensity get_Color_Intensity(const Ray &ray, const Vector3 &intersect_point, const Object *obj) const;
+    Color_Intensity get_Color_Intensity(const Ray &ray,
+            const Vector3 &intersect_point,
+            const Object *obj,
+            Color_Intensity &color_intensity,
+            int depth) const;
+
+    Color_Intensity trace_reflection_rec(const Ray &r, Color_Intensity &color_intensity, int depth) const;
 
     Image gen_img() const;
 

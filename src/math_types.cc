@@ -1,22 +1,6 @@
 #include "math_types.hh"
 
 
-std::ostream &operator<<(std::ostream &out, Color &c) {
-    return out << "Color(r=" << unsigned(c.r) << ", g=" << unsigned(c.g) << ", b=" << unsigned(c.b) << ")";
-}
-
-float Color::r_intensity() const {
-    return (float) r / 255.f;
-}
-
-float Color::g_intensity() const {
-    return (float) g / 255.f;
-}
-
-float Color::b_intensity() const {
-    return (float) b / 255.f;
-}
-
 Vector3& Vector3::operator+=(const Vector3 &v) {
     x_ += v.x_;
     y_ += v.y_;

@@ -8,6 +8,7 @@
 #include <string>
 
 #include "math_types.hh"
+#include "color.hh"
 
 class Image {
 public:

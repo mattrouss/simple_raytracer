@@ -5,34 +5,8 @@
 
 #include "math_types.hh"
 #include "object.hh"
+#include "color.hh"
 
-class Light;
-
-struct Color_Intensity
-{
-    float r, g, b;
-
-    Color_Intensity(float r_ = 0, float g_ = 0, float b_ = 0): r(r_), g(g_), b(b_) {}
-
-    Color_Intensity operator+=(const Color_Intensity &l);
-    Color_Intensity operator+(const Color_Intensity &l);
-
-    Color_Intensity& add_diffuse(const float &kd, const Color &obj_color,
-            const Light &light_source,
-            const Vector3 &intersect_point,
-            const Vector3 &N,
-            const Vector3 &L);
-
-    Color_Intensity& add_specular(const float &ks,
-            const float &ns,
-            const Light &light_source,
-            const Vector3 &intersect_point,
-            const Vector3 &S, const Vector3 &L);
-
-    Color to_rgb() const;
-
-    friend std::ostream& operator<<(std::ostream &out, Color_Intensity &l);
-};
 
 class Light {
 public:

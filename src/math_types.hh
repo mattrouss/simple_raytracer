@@ -7,18 +7,6 @@
 
 class Vector3;
 
-struct Color
-{
-    uint8_t r, g, b;
-
-    Color(uint8_t r_ = 0, uint8_t g_ = 0, uint8_t b_ = 0): r(r_), g(g_), b(b_) {}
-
-    float r_intensity() const;
-    float g_intensity() const;
-    float b_intensity() const;
-
-    friend std::ostream& operator<<(std::ostream &out, Color &c);
-};
 
 
 class Vector3
