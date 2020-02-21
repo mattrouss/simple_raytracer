@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
     Uniform_Texture ut_pink(0.3, 0.6, 8, 0.1, Color(255, 0, 150));
     Uniform_Texture ut_green(0.5, 0.4, 5, 0.1, Color(0, 200, 0));
     Uniform_Texture ut_blue(0.5, 0.4, 4, 0.1, Color(0, 0, 200));
-    Uniform_Texture ut_gray(0.5, 0.5, 4, 0.01, Color(150, 150, 150));
+    Uniform_Texture ut_gray(0.7, 0, 6, 0.2, Color(100, 100, 100));
     s.add_object(new Plane({0, -5, 0}, {0, 1, 0}, ut_gray));
     s.add_object(new Sphere(1, {4, -3, 10}, ut_blue));
     s.add_object(new Sphere(2, {0, -3, 14}, ut_pink));

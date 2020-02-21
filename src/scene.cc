@@ -4,14 +4,11 @@
 
 #include "scene.hh"
 
-#include <iostream>
-#include <algorithm>
-#include <cstdint>
 #include <tuple>
 #include <limits>
 
 #define INTERSECT_DELTA 1e-4
-#define REFLECTION_DEPTH 0
+#define REFLECTION_DEPTH 1
 
 std::tuple<Vector3, Object*> Scene::cast_ray(const Ray &r) const {
     Object *min = nullptr;
@@ -58,7 +55,8 @@ Color_Intensity Scene::get_Color_Intensity(const Ray &ray,
             auto [reflect_intersect, reflect] = cast_ray(reflect_ray);
             if (reflect == nullptr)
                 return color_intensity;
-            color_intensity +=  reflectivity * get_Color_Intensity(reflect_ray, reflect_intersect, reflect, color_intensity, depth + 1);
+           Color_Intensity acc(0, 0, 0);
+            color_intensity +=  reflectivity * get_Color_Intensity(reflect_ray, reflect_intersect, reflect, acc, depth + 1);
         }
     }
     return color_intensity;
