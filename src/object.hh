@@ -34,3 +34,22 @@ private:
 
     Uniform_Texture texture_;
 };
+
+class Plane: public Object
+{
+public:
+    Plane(const Vector3 &org, const Vector3 &normal, const Uniform_Texture &texture):
+            org_(org),
+            normal_(normal),
+            texture_(texture) {}
+
+    float intersects(const Ray &r) const override;
+    Vector3 normal_of(const Vector3 &v) const override;
+    std::tuple<float, float, float, Color> get_texture_elms(const Vector3 &p) const override;
+
+private:
+    Vector3 org_, normal_;
+
+    Uniform_Texture texture_;
+
+};

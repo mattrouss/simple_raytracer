@@ -29,3 +29,20 @@ Vector3 Sphere::normal_of(const Vector3 &v) const {
 std::tuple<float, float, float, Color> Sphere::get_texture_elms(const Vector3 &p) const {
     return texture_.get_texture_elms(p);
 }
+
+float Plane::intersects(const Ray &r) const {
+    float denom = normal_.dot(r.dir);
+    float distance = (org_ - r.org).dot(normal_) / denom;
+    if (distance >= 0)
+        return distance;
+    return -1;
+}
+
+Vector3 Plane::normal_of(const Vector3 &v) const {
+    return normal_;
+}
+
+std::tuple<float, float, float, Color>
+Plane::get_texture_elms(const Vector3 &p) const {
+    return texture_.get_texture_elms(p);
+}
