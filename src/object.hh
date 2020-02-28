@@ -61,7 +61,7 @@ public:
     Triangle(const Vector3 &a, const Vector3 &b, const Vector3 &c, const Uniform_Texture &texture):
     a_(a), b_(b), c_(c), texture_(texture)
     {
-        normal_ = (b - a).cross(c - a).normalized();
+        normal_ = -1 * (b - a).cross(c - a).normalized();
     }
 
     float intersects(const Ray &r) const override;
