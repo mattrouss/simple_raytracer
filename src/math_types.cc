@@ -121,6 +121,34 @@ Vector3 Vector3::backward() {
     return Vector3(0, 0, -1);
 }
 
+Vector3 Vector3::diagXY() {
+    return Vector3(1, 1, 0);
+}
+
+Vector3 Vector3::diagYZ() {
+    return Vector3(0, 1, 1);
+}
+
+Vector3 Vector3::diagXZ() {
+    return Vector3(1, 0, 1);
+}
+
+Vector3 Vector3::diagXYZ() {
+    return Vector3(1, 1, 1);
+}
+
+void Vector3::add_x(const float x) {
+    x_ += x;
+}
+
+void Vector3::add_y(const float y) {
+    y_ += y;
+}
+
+void Vector3::add_z(const float z) {
+    z_ += z;
+}
+
 std::ostream &operator<<(std::ostream &out, const Ray &r) {
 
     out << "Ray (Origin: " << r.org;

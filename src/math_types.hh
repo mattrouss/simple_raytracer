@@ -5,10 +5,6 @@
 #include <cmath>
 #include <algorithm>
 
-class Vector3;
-
-
-
 class Vector3
 {
 public:
@@ -28,6 +24,10 @@ public:
     float y() const;
     float z() const;
 
+    void add_x(const float x);
+    void add_y(const float y);
+    void add_z(const float z);
+
     static Vector3 zeros();
     static Vector3 up();
     static Vector3 down();
@@ -35,6 +35,10 @@ public:
     static Vector3 right();
     static Vector3 forward();
     static Vector3 backward();
+    static Vector3 diagXY();
+    static Vector3 diagYZ();
+    static Vector3 diagXZ();
+    static Vector3 diagXYZ();
 
     friend std::ostream& operator<<(std::ostream &out, const Vector3 &vec);
 
