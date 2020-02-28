@@ -51,22 +51,20 @@ Plane::get_texture_elms(const Vector3 &p) const {
 
 float Triangle::intersects(const Ray &r) const {
 
-    Vector3 edge1, edge2, h, s, q;
-    float a,f,u,v;
-    edge1 = b_ - a_;
-    edge2 = c_ - a_;
-    h = r.dir.cross(edge2);
-    a = edge1.dot(h);
+    Vector3 edge1 = b_ - a_;
+    Vector3 edge2 = c_ - a_;
+    Vector3 h = r.dir.cross(edge2);
+    float a = edge1.dot(h);
     if (a > -EPSILON && a < EPSILON)
         return -1;    // Ray is parallel to triangle
 
-    f = 1.0f/a;
-    s = r.org - a_;
-    u = f * (s.dot(h));
+    float f = 1.0f/a;
+    Vector3 s = r.org - a_;
+    float u = f * (s.dot(h));
     if (u < 0.0 || u > 1.0)
         return -1;
-    q = s.cross(edge1);
-    v = f * r.dir.dot(q);
+    Vector3 q = s.cross(edge1);
+    float v = f * r.dir.dot(q);
     if (v < 0.0 || u + v > 1.0)
         return -1;
 
