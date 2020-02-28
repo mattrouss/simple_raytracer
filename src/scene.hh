@@ -10,6 +10,7 @@
 #include "light.hh"
 #include "camera.hh"
 #include "image.hh"
+#include "blob.hh"
 
 class Scene {
 public:
@@ -27,6 +28,14 @@ public:
         tl_ = screen_center_ + (screen_width_ / 2) * Vector3::left() + (screen_height_ / 2) * Vector3::up();
 
     }
+
+    ~Scene()
+    {
+        for (Object *obj: objects_)
+            delete obj;
+        for (Light *l: lights_)
+            delete l;
+    }
     std::tuple<Vector3, Object*> cast_ray(const Ray &r) const;
     Color_Intensity get_Color_Intensity(const Ray &ray,
             const Vector3 &intersect_point,
@@ -36,13 +45,16 @@ public:
 
     Color_Intensity trace_reflection_rec(const Ray &r, Color_Intensity &color_intensity, int depth) const;
 
+    void init_blobs(float S);
     Image gen_img() const;
 
     void add_object(Object *o);
+    void add_blob(const Blob &b);
     void add_light_source(Light *l);
 
 private:
     std::vector<Object *> objects_;
+    std::vector<Blob> blobs_;
     std::vector<Light *> lights_;
 
     Camera cam_;

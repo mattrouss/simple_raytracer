@@ -8,7 +8,7 @@
 #include <limits>
 
 #define INTERSECT_DELTA 1e-4
-#define REFLECTION_DEPTH 1
+#define REFLECTION_DEPTH 0
 
 std::tuple<Vector3, Object*> Scene::cast_ray(const Ray &r) const {
     Object *min = nullptr;
@@ -76,6 +76,15 @@ Color_Intensity Scene::trace_reflection_rec(const Ray &ray,
     return trace_reflection_rec({reflect_intersect, S_rec}, color_intensity, depth + 1);
 }
 
+void Scene::init_blobs(float S) {
+   for (auto &b: blobs_)
+   {
+       auto triangles = b.march_cubes(S);
+       for (auto t: triangles)
+           add_object(t);
+   }
+}
+
 Image Scene::gen_img() const {
     Image im(img_width_, img_height_);
     for (int i = 0; i < img_height_; i++)
@@ -105,6 +114,12 @@ void Scene::add_object(Object *o) {
     objects_.push_back(o);
 }
 
+void Scene::add_blob(const Blob &b) {
+    blobs_.push_back(b);
+
+}
+
 void Scene::add_light_source(Light *l) {
     lights_.push_back(l);
 }
+
