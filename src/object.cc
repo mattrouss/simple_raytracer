@@ -7,7 +7,7 @@
 
 #include "object.hh"
 
-#define EPSILON 1e-6
+#define EPSILON 1e-4
 
 float Sphere::intersects(const Ray &r) const {
     Vector3 oc = r.org - org_;
@@ -35,7 +35,7 @@ std::tuple<float, float, float, float, Color> Sphere::get_texture_elms(const Vec
 float Plane::intersects(const Ray &r) const {
     float denom = normal_.dot(r.dir);
     float distance = (org_ - r.org).dot(normal_) / denom;
-    if (distance >= 0)
+    if (distance >= EPSILON)
         return distance;
     return -1;
 }

@@ -49,7 +49,7 @@ Color_Intensity Scene::get_Color_Intensity(const Ray &ray,
         color_intensity.add_diffuse(kd, color, light_colors, N, L);
         color_intensity.add_specular(ks, ns, light_colors, S, L);
 
-        Ray reflect_ray(intersect_point, S);
+        Ray reflect_ray(intersect_point + (INTERSECT_DELTA * N), S);
         if (depth < REFLECTION_DEPTH)
         {
             auto [reflect_intersect, reflect] = cast_ray(reflect_ray);
